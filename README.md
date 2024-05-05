@@ -1,6 +1,6 @@
 # Project Overview: Bengali Text Correction
 
-The goal of this project was to develop a software model that could fix grammatical and syntax errors in Bengali text. The approach was similar to how a language translator works, where the incorrect sentence is transformed into a correct one. We fine tune a pertained model, namely [mBart50] with a [dataset] of 1.M samples for 6500 steps and achieve a result of 0.44 bleu Score. Clone/download this repo, run the `correction.py` script and type the sentence after the prompt and you are all set.
+The goal of this project was to develop a software model that could fix grammatical and syntax errors in Bengali text. The approach was similar to how a language translator works, where the incorrect sentence is transformed into a correct one. We fine tune a pertained model, namely [mBart50](https://huggingface.co/facebook/mbart-large-50) with a [dataset](https://github.com/hishab-nlp/BNSECData) of 1.3 M samples for 6500 steps and achieve a result of `{BLEU: 0.443, CER:0.159, WER:0.406, Meteor: 0.655}` Score. Clone/download this repo, run the `correction.py` script and type the sentence after the prompt and you are all set.
 
 ## Initial Testing:
 
@@ -58,7 +58,7 @@ correct_bengali_sentence = tokenizer.decode(outputs[0], skip_special_tokens=True
 # আপনি কেমন আছেন?
 ```
 
-If you want to test this model from the terminal, run the `python correction.py` script and type the sentence after the prompt and you are all set. you'll need the `transformers`library to run this script. Install the `transformers` model using `pip install -q transformers[torch] -U`.
+If you want to test this model from the terminal, run the `python correction.py` script and type the sentence after the prompt and you are all set. you'll need the `transformers` library to run this script. Install the `transformers` model using `pip install -q transformers[torch] -U`.
 
 #### Important note: You need to make sure if have used `use_safetensors =True` parameter during loading the model.
 
@@ -77,5 +77,6 @@ The model is clearly overfitting, and we can reduce that. My best guess is that 
 I'm also planning to run a 4-bit quantization on the same model to see how it performs against the base model. It should be a fun experiment.
 
 ## Resources and References:
+
 [Dataset Source](https://github.com/hishab-nlp/BNSECData)
 [Model Documentation and Troubleshooting](https://huggingface.co/docs/transformers/model_doc/mbart)
