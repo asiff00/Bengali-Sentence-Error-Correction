@@ -1,4 +1,4 @@
-# Project Overview: Bengali Text Correction
+# Bengali Sentence Error Correction
 
 The goal of this project was to develop a software model that could fix grammatical and syntax errors in Bengali text. The approach was similar to how a language translator works, where the incorrect sentence is transformed into a correct one. We fine-tune a pertained model, namely [mBart50](https://huggingface.co/facebook/mbart-large-50) with a [dataset](https://github.com/hishab-nlp/BNSECData) of 1.3 M samples for 6500 steps and achieve a score of BLEU[^1]: 0.443, CER[^2]:0.159, WER[^3]:0.406, Meteor[^4]: 0.655 when tested on unseen data. Clone/download this repo, run the `correction.py` script, and type the sentence after the prompt and you are all set.
 [^1]: Bilingual Evaluation Understudy
