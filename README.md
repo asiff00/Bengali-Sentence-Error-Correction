@@ -20,7 +20,7 @@ Ultimately, mBART 50 was chosen as the best model because of its flexibility, re
 
 ## Data Processing and Enhancements
 
-[Dataset] contains over 1.3M incorrect, correct sentences pair. When reviewing the data, I found some outliers, such as multiple occurrences of the digit '1'. Instead of removing these, I compressed them into a single number to help the model understand numbers in context. To simulate common user errors, I generated additional incorrect sentences with errors custom errors. One of them would be homophonic character swaps and another diacritic changes. This is one the common mistake in bengali writing. Here, `পরি`/`পড়ি` and `বিশ`, `বিষ` pair has completely different meaning depending on which spelling we are using. So, it is important that out dataset acknowledges that. I created a [Simulate Error](simulate_error.py) script for this project where you can add easily add introduce errors to your bengali dataset.
+[Dataset](https://github.com/hishab-nlp/BNSECData) contains over 1.3M incorrect, correct sentences pair. When reviewing the data, I found some outliers, such as multiple occurrences of the digit '1'. Instead of removing these, I compressed them into a single number to help the model understand numbers in context. To simulate common user errors, I generated additional incorrect sentences with errors custom errors. One of them would be homophonic character swaps and another diacritic changes. This is one the common mistake in bengali writing. Here, `পরি`/`পড়ি` and `বিশ`, `বিষ` pair has completely different meaning depending on which spelling we are using. So, it is important that out dataset acknowledges that. I created a [Simulate Error](simulate_error.py) script for this project where you can add easily add introduce errors to your bengali dataset.
 
 After necessary data engineering, I split the dataset into train and test sets. However, looking back at the choice of distribution (test_size=0.005) , which was purely to accommodate computational scarcity, I realize I have made a mistake there.
 
@@ -72,6 +72,10 @@ If you want to test this model from the terminal, run the `python correction.py`
 
 ## What's next?
 
-The model is clearly overfitting, and we can reduce that. My best guess is that we have a comparatively smaller validation set, which needed to be smaller to fit the model on a GPU, thus exacerbating the huge discrepancy between the two tests. We can train it on a more balanced distribution of datasets for further improvement. Another thing we can do is fine-tune the already fine-tuned model using a new dataset. I already have a script, [Scrapper](https://github.com/himisir/Scrape-Any-Sites), that I can use with the [Data Pipeline](create_dataset.py) that I just created for more diverse training data.
+The model is clearly overfitting, and we can reduce that. My best guess is that we have a comparatively smaller validation set, which needed to be smaller to fit the model on a GPU, thus exacerbating the huge discrepancy between the two tests. We can train it on a more balanced distribution of datasets for further improvement. Another thing we can do is fine-tune the already fine-tuned model using a new dataset. I already have a script, [Scrapper](https://github.com/himisir/Scrape-Any-Sites), that I can use with the [Data Pipeline](simulate_error.py) that I just created for more diverse training data.
 
 I'm also planning to run a 4-bit quantization on the same model to see how it performs against the base model. It should be a fun experiment.
+
+## Resources and References:
+[Dataset Source](https://github.com/hishab-nlp/BNSECData)
+[Model Documentation and Troubleshooting](https://huggingface.co/docs/transformers/model_doc/mbart)
