@@ -1,4 +1,4 @@
-gdown, 
-transformers, 
-torch, 
-pandas, 
+gdown
+transformers
+torch
+pandas
