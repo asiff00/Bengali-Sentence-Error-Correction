@@ -1,4 +1,8 @@
 # Bengali Sentence Error Correction
+[![Training Notebook](https://img.shields.io/badge/View-Training%20Notebook-blue?style=flat-square&logo=Jupyter)](finetune.ipynb)
+[![Hugging Face Demo](https://img.shields.io/badge/Try-Hugging%20Face%20Demo-brightgreen?style=flat-square&logo=huggingface)](https://huggingface.co/spaces/asif00/Bengali_Sentence_Error_Correction__mbart_bn_error_correction)
+[![Hugging Face Model](https://img.shields.io/badge/Hugging%20Face%20Model-View%20Model-blueviolet?style=flat-square&logo=huggingface)](https://huggingface.co/asif00/mbart_bn_error_correction)
+
 
 The goal of this project was to develop a software model that could fix grammatical and syntax errors in Bengali text. The approach was similar to how a language translator works, where the incorrect sentence is transformed into a correct one. We fine-tune a pertained model, namely [mBart50](https://huggingface.co/facebook/mbart-large-50) with a [dataset](https://github.com/hishab-nlp/BNSECData) of 1.3 M samples for 6500 steps and achieve a score of BLEU[^1]: 0.443, CER[^2]:0.159, WER[^3]:0.406, Meteor[^4]: 0.655 when tested on unseen data. Clone/download this repo, run the `correction.py` script, and type the sentence after the prompt and you are all set. Here is a live [HuggingFace Demo](https://huggingface.co/spaces/asif00/Bengali_Sentence_Error_Correction__mbart_bn_error_correction) of the finetune model in action. 
 [^1]: Bilingual Evaluation Understudy
@@ -49,10 +53,10 @@ Here is a simple way to use the fine-tuned model to correct Bengali sentences:
 If you are trying to use it on a script, this is how can do It:
 
 ```python
-from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from transformers import AutoModelForSeq2SeqLM, MBart50Tokenizer
 
-checkpoint = "model/checkpoint"
-tokenizer = AutoTokenizer.from_pretrained(checkpoint, src_lang="bn_IN", tgt_lang="bn_IN", use_fast=True)
+checkpoint = "asif00/mbart_bn_error_correction"
+tokenizer = MBart50Tokenizer.from_pretrained(checkpoint, src_lang="bn_IN", tgt_lang="bn_IN", use_fast=True)
 model = AutoModelForSeq2SeqLM.from_pretrained(checkpoint,  use_safetensors =True)
 
 incorrect_bengali_sentence = "আপনি কমন আছেন?"
@@ -60,11 +64,12 @@ inputs = tokenizer.encode(incorrect_bengali_sentence, truncation = True, return_
 outputs = model.generate(inputs, max_new_tokens=len(incorrect_bengali_sentence), num_beams=5, early_stopping=True)
 correct_bengali_sentence = tokenizer.decode(outputs[0], skip_special_tokens=True)
 # আপনি কেমন আছেন?
+
 ```
 
 If you want to test this model from the terminal, run the `python correction.py` script and type the sentence after the prompt and you are all set. you'll need the `transformers` library to run this script. Install the `transformers` model using `pip install -q transformers[torch] -U`.
 
-#### Important note: You need to make sure if have used the `use_safetensors =True` parameter during the loading of the model.
+#### Important note: You need to make sure you have used `MBart50Tokenizer` as the tokenizer and used the `use_safetensors =True` parameter during the loading of the model.
 
 # General issues faced during the entire journey:
 
