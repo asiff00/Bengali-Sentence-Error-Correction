@@ -22,7 +22,7 @@ Beyond Seq2Seq models and approach a few other ideas also crossed my mind. Other
 
 Ultimately, mBART 50 was chosen as the best model because of its flexibility, resource efficiency, and reproducibility.
 
-## Base Model Overrides
+## Base Model Overview
 
 [mBART Large 50](https://huggingface.co/facebook/mbart-large-50) is a 600M parameter multilingual Sequence-to-Sequence model. It was introduced to show that multilingual translation models can be created through multilingual fine-tuning. Instead of fine-tuning in one direction, a pre-trained model is fine-tuned in many directions simultaneously. mBART-50 is created using the original mBART model and extended to add an extra 25 languages to support multilingual machine translation models of 50 languages. More about the base model can be found in [Official Documentation](https://huggingface.co/docs/transformers/model_doc/mbart)
 
